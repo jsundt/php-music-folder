@@ -6252,8 +6252,8 @@ class getid3
         
         $determined_format['include'] = 'module.'.$determined_format['group'].'.'.$determined_format['module'].'.php';
 
-        
-        if (!file_exists($this->include_path.$determined_format['include'])) {
+        global $config;
+        if (!in_array($determined_format['module'], $config['formats'])) {
             fclose($this->fp);
             throw new getid3_exception('Format not supported, module "'.$determined_format['include'].'" was removed.');
         }
