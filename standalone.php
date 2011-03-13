@@ -131,6 +131,11 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
     
     <body>
         <div id="page">
+            <?php if(empty($tracks)): ?>
+            <div class="message error">
+                <h1>No tracks :(</h1>
+            </div>
+            <?php else: ?>
             <div id="jquery_jplayer_1" class="jp-jplayer"></div>
     		<div class="jp-audio">
     			<div class="jp-type-single">
@@ -179,6 +184,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
                     </tbody>
                 </table>
             </div>
+            <?php endif; ?>
         </div>
         
         <script type="text/javascript">
@@ -197,6 +203,5 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 			return false;
 		}
         </script>
-        
     </body>
 </html>
