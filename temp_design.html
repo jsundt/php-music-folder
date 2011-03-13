@@ -80,7 +80,12 @@
         
         $(".playtrack").click( changeTrack );
 		
+		var playing = null;
+		
 		function changeTrack(e) {
+		    if(playing != null) playing.removeClass('playing');
+		    playing = $(this).parent().parent();
+		    $(this).parent().parent().addClass('playing');
 			$("#jquery_jplayer_1").jPlayer("setMedia", { mp3: $(this).attr("href")}).jPlayer("play");
 			return false;
 		}
