@@ -1,5 +1,5 @@
 <?php
-    
+    include "getid3.mini.php";
     $config['formats'] = array('mp3');
     
     function getTracks()
@@ -7,9 +7,18 @@
         global $config;
         $dir = realpath(dirname(__FILE__));
         
+        $id3 = new getid3();
+        
         for ($tracks = array(), $handle = opendir($dir); ($handle && FALSE !== ($file = readdir($handle)));) {
             if(in_array(pathinfo($file, PATHINFO_EXTENSION), $config['formats'])) {
-                array_push($tracks, $file);
+                $info = $id3->analyze($file);
+                $track = array(
+                    'path' => $file,
+                    'title'     => isset($info['tags_html']['id3v1']['title'][0]) ? $info['tags_html']['id3v1']['title'][0] : @$info['comments']['title'][0],
+                    'artist'    => isset($info['tags_html']['id3v1']['artist'][0]) ? $info['tags_html']['id3v1']['artist'][0] : @$info['comments']['artist'][0],
+                    'album'    => isset($info['tags_html']['id3v1']['album'][0]) ? $info['tags_html']['id3v1']['album'][0] : @$info['comments']['album'][0]
+                    );
+                array_push($tracks, $track);
             }
         }
         
@@ -142,14 +151,20 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th class="number">#</th>
+                            <th class="name">Name</th>
+                            <th class="artist">Artist</th>
+                            <th class="album">Album</th>
                         </tr>
                     </thead>
                     
                     <tbody>
                         <?php foreach($tracks as $track): ?>
                         <tr>
-                            <td class="name"><a href="<?php echo $track?>" class="playtrack"><?php echo $track?></a></td>
+                            <td class="number">#</td>
+                            <td class="name"><a href="<?php echo $track['path']?>" class="playtrack"><?php echo $track['title']?></a></td>
+                            <td class="artist"><?php echo $track['artist']?></td>
+                            <td class="album"><?php echo $track['album']?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
