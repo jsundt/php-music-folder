@@ -51,7 +51,7 @@
                     <tbody>
                         <tr>
                             <td class="number">1</td>
-                            <td class="name"><a href="http://www.jplayer.org/audio/mp3/Miaow-07-Bubble.mp3" class="playtrack">Sirens</a></td>
+                            <td class="name"><a href="http://www.jplayer.org/audio/mp3/Miaow-07-Bubble.mp3" class="playtrack mp3">Sirens</a></td>
                             <td class="artist">Angels &amp; Airwaves</td>
                             <td class="album">We Don't Need to Whisper</td>
                         </tr>
@@ -77,16 +77,32 @@
     	$("#jquery_jplayer_1").jPlayer({
     		swfPath: "js"
     	});
-        
-        $(".playtrack").click( changeTrack );
-		
+    	
+        $(".playtrack").click(changeTrack);
+
 		var playing = null;
 		
-		function changeTrack(e) {
+		function toggleClass(newClass) {
 		    if(playing != null) playing.removeClass('playing');
-		    playing = $(this).parent().parent();
-		    $(this).parent().parent().addClass('playing');
-			$("#jquery_jplayer_1").jPlayer("setMedia", { mp3: $(this).attr("href")}).jPlayer("play");
+		    playing = newClass.parent().parent();
+		    newClass.parent().parent().addClass('playing');		    
+		}
+		
+		function changeTrack(e) {
+		    toggleClass($(this));
+		    className = $(this).attr("class");
+		    if(className.indexOf("mp3") != -1) {
+		        $("#jquery_jplayer_1").jPlayer("setMedia", { mp3: $(this).attr("href")}).jPlayer("play");
+		    } else if(className.indexOf("wav") != -1) {
+                $("#jquery_jplayer_1").jPlayer("setMedia", { wav: $(this).attr("href")}).jPlayer("play");
+            } else if(className.indexOf("m4a") != -1) {
+                $("#jquery_jplayer_1").jPlayer("setMedia", { m4a: $(this).attr("href")}).jPlayer("play");
+            } else if(className.indexOf("oga") != -1) {
+                $("#jquery_jplayer_1").jPlayer("setMedia", { oga: $(this).attr("href")}).jPlayer("play");
+            } else if(className.indexOf("webma") != -1) {
+                $("#jquery_jplayer_1").jPlayer("setMedia", { webma: $(this).attr("href")}).jPlayer("play");
+    		} else return true;
+		    
 			return false;
 		}
         </script>

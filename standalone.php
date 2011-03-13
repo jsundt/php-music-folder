@@ -159,9 +159,9 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
                     </thead>
                     
                     <tbody>
-                        <?php foreach($tracks as $track): ?>
+                        <?php foreach($tracks as $number => $track): ?>
                         <tr>
-                            <td class="number">#</td>
+                            <td class="number"><?php echo $number+1?></td>
                             <td class="name"><a href="<?php echo $track['path']?>" class="playtrack"><?php echo $track['title']?></a></td>
                             <td class="artist"><?php echo $track['artist']?></td>
                             <td class="album"><?php echo $track['album']?></td>
