@@ -1,0 +1,35 @@
+
+body {
+    font: normal normal normal 13px/20px 'Helvetica Neue', Arial, sans-serif;
+    background: #eee;
+    
+}
+
+#page {
+    width: 500px;
+    margin: 40px auto;
+}
+
+
+#folder-list {
+    background: #eee;
+}
+
+#folder-list table {
+    text-align: left;
+    width: 100%;
+}
+
+#folder-list table th {
+    border: 1px solid #888;
+    padding: 2px 10px;
+    background: #aaa;
+    color: #333;
+    font-weight: bold;
+}
+
+#folder-list table td {
+    padding: 3px 10px;
+    border: 1px solid #ddd;
+}
+
