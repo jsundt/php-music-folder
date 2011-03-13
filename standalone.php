@@ -11,13 +11,24 @@
         
         for ($tracks = array(), $handle = opendir($dir); ($handle && FALSE !== ($file = readdir($handle)));) {
             if(in_array(pathinfo($file, PATHINFO_EXTENSION), $config['formats'])) {
-                $info = $id3->analyze($file);
-                $track = array(
-                    'path' => $file,
-                    'title'     => isset($info['tags_html']['id3v1']['title'][0]) ? $info['tags_html']['id3v1']['title'][0] : @$info['comments']['title'][0],
-                    'artist'    => isset($info['tags_html']['id3v1']['artist'][0]) ? $info['tags_html']['id3v1']['artist'][0] : @$info['comments']['artist'][0],
-                    'album'    => isset($info['tags_html']['id3v1']['album'][0]) ? $info['tags_html']['id3v1']['album'][0] : @$info['comments']['album'][0]
+                try {
+                    $info = $id3->analyze($file);
+                    $track = array(
+                        'path' => $file,
+                        'title'     => isset($info['tags_html']['id3v1']['title'][0]) ? $info['tags_html']['id3v1']['title'][0] : @$info['comments']['title'][0],
+                        'artist'    => isset($info['tags_html']['id3v1']['artist'][0]) ? $info['tags_html']['id3v1']['artist'][0] : @$info['comments']['artist'][0],
+                        'album'    => isset($info['tags_html']['id3v1']['album'][0]) ? $info['tags_html']['id3v1']['album'][0] : @$info['comments']['album'][0]
+                        );
+                } catch(Exception $e)
+                {
+                    $track = array(
+                        'path' => $file,
+                        'title' => "",
+                        'artist' => "",
+                        'album' => ""
                     );
+                }
+
                 array_push($tracks, $track);
             }
         }
