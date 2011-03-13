@@ -1,5 +1,5 @@
 <?php
-    $config['formats'] = array('mp3');
+    $config['formats'] = array('mp3', 'm4a', 'wav');
     include "getid3.mini.php";
     
     function getTracks()
@@ -160,7 +160,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
                         <?php foreach($tracks as $number => $track): ?>
                         <tr>
                             <td class="number"><?php echo $number+1?></td>
-                            <td class="name"><a href="<?php echo $track['path']?>" class="playtrack"><?php echo $track['title']?></a></td>
+                            <td class="name"><a href="<?php echo $track['path']?>" class="playtrack"><?php echo $track['title'] ? $track['title'] : $track['path']?></a></td>
                             <td class="artist"><?php echo $track['artist']?></td>
                             <td class="album"><?php echo $track['album']?></td>
                         </tr>
