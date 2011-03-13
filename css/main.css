@@ -6,7 +6,7 @@ body {
 }
 
 #page {
-    width: 600px;
+    width: 500px;
     margin: 40px auto;
 }
 
@@ -76,4 +76,14 @@ body {
 #folder-list table td a {
     color: #666;
     text-decoration: none;
+}
+
+@media (min-device-width:1024px) and (max-width:509px),
+       (max-device-width:480px) and (orientation:portrait) {
+    #page {
+        width: 300px;
+        margin: 40px auto;
+    }
+    
+    .album {display: none;}
 }
